@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.sw.project.ProjectApiApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.328 s <<< FAILURE! - in com.sw.project.ProjectApiApplicationTests
+contextLoads  Time elapsed: 0.012 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [org.springdoc.core.configuration.SpringDocConfiguration$OpenApiResourceAdvice] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@1cf4f579]
+Caused by: java.lang.NoClassDefFoundError: org/springframework/http/HttpStatusCode
+Caused by: java.lang.ClassNotFoundException: org.springframework.http.HttpStatusCode
+
