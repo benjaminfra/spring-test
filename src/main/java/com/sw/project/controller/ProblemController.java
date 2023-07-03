@@ -11,16 +11,18 @@ import com.sw.project.repository.ProblemRepository;
 import com.sw.project.service.ProblemService;
 import com.sw.project.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -42,10 +44,10 @@ public class ProblemController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@RequestMapping(value = "/{code}", method = RequestMethod.GET,
-			produces = {"application/json"})
+	@GetMapping(value = "/{code}",
+	produces = {"application/json"})
 	@Operation(summary = "code로 문제 조회", description = "code는 6자리 영문과 숫자조합")
-	public ResponseEntity<Collection<Problem>> getProblemByCode(@Valid @PathVariable("code") final String code){
+	public ResponseEntity<Collection<Problem>> getProblemByCode(@Valid @PathVariable final String code){
 		
 		if(code.length() < 6 || code.equals(""))
 			throw new DataFormatException("Please check your code");
@@ -60,11 +62,10 @@ public class ProblemController {
 	}
 
 
-	@RequestMapping(value = "{code}", method = RequestMethod.POST
-			, consumes = "application/json")
+	@PostMapping(value = "{code}", consumes = "application/json")
 	@Operation(summary = "문제 생성", description = "code는 6자리 영문과 숫자조합, problem parameter는 사용 X")
 	public ResponseEntity<?> saveProblem(@Valid @RequestBody Problem problem,
-										 @PathVariable("code")final String code){
+										 @PathVariable final String code){
 	
 		if(code.length() < 6 || code.equals("")) {
 			logger.info("dfsdfsdfsdfsdf");
@@ -87,9 +88,9 @@ public class ProblemController {
 		return new ResponseEntity<String> (getJson(result), HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/{code}", method = RequestMethod.DELETE)
+	@DeleteMapping("/{code}")
 	@Operation(summary = "code로 최근 문제 삭제", description = "code는 6자리 영문과 숫자조합")
-	public ResponseEntity<?> deleteProblem(@Valid @PathVariable("code") final String code) {
+	public ResponseEntity<?> deleteProblem(@Valid @PathVariable final String code) {
 		//code가 "code"인 데이터들을 찾아와서 	
 
 		if (code.length() < 6 || code.equals(""))
@@ -101,9 +102,9 @@ public class ProblemController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/{code}/all", method = RequestMethod.DELETE)
+	@DeleteMapping("/{code}/all")
 	@Operation(summary = "code로 모든 문제 삭제, ", description = "code는 6자리 영문과 숫자조합")
-	public ResponseEntity<?> deleteAllProblem(@Valid @PathVariable("code") final String code){
+	public ResponseEntity<?> deleteAllProblem(@Valid @PathVariable final String code){
 		
 		if(code.length() < 6 || code.equals(""))
 			throw new DataFormatException("Please check your code");

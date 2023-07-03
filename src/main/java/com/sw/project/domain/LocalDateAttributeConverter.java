@@ -1,6 +1,6 @@
 package com.sw.project.domain;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 import java.sql.Date;
 import java.time.LocalDate;

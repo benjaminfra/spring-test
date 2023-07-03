@@ -1,6 +1,6 @@
 package com.sw.project.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;

@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI customOpenAPI(@Value("${application-description}") String appDescription, @Value("${application" +
-            "-version}") String appVersion) {
+    public OpenAPI customOpenAPI(@Value("${application-description}") String appDescription, @Value("""
+            ${application\
+            -version}\
+            """) String appVersion) {
         return new OpenAPI()
                 .info(new Info()
                         .title("Relationship Application API")

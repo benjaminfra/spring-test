@@ -8,18 +8,13 @@ import com.sw.project.exception.ResourceNotFoundException;
 import com.sw.project.repository.ProblemRepository;
 import com.sw.project.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -38,10 +33,10 @@ public class ProjectController {
 	@Autowired
 	private ProblemRepository problemRepository;
 
-	@RequestMapping(value = "/{code}", method = RequestMethod.GET,
-			produces = {"application/json", "application/xml"})
+	@GetMapping(value = "/{code}",
+	produces = {"application/json", "application/xml"})
 	@Operation(summary = "code로 프로젝트 조회", description = "code는 6자리 영문과 숫자조합 ")
-	public ResponseEntity<?> getProject(@Valid @PathVariable("code") final String code) { //code로 프로젝트 찾음(code unique).
+	public ResponseEntity<?> getProject(@Valid @PathVariable final String code) { //code로 프로젝트 찾음(code unique).
 
 
 		if (code.length() < 6 || code.equals(""))
@@ -55,9 +50,9 @@ public class ProjectController {
 		
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.POST,
-			consumes = {"application/json"},
-			produces = {"application/json"})
+	@PostMapping(value = "",
+	consumes = {"application/json"},
+	produces = {"application/json"})
 	@Operation(summary = "프로젝트 생성", description = "code는 자동생성, title(String) 필요")
 	public ResponseEntity<?> createProject(@Valid @RequestBody Project project) {
 		
@@ -80,9 +75,9 @@ public class ProjectController {
 
 	}
 
-	@RequestMapping(value = "/{code}", method = RequestMethod.DELETE)
+	@DeleteMapping("/{code}")
 	@Operation(summary = "code로 프로젝트 삭제", description = "code 필요")
-	ResponseEntity<?> deleteProject(@Valid @PathVariable("code") final String code){
+	ResponseEntity<?> deleteProject(@Valid @PathVariable final String code){
 	
 		if(code.length() < 6 || code.equals(""))
 			throw new DataFormatException("Please Check your code");
@@ -95,11 +90,11 @@ public class ProjectController {
 		
 	}
 
-	@RequestMapping(value = "/{code}", method = RequestMethod.PUT,
-			consumes = {"application/json"},
-			produces = {"application/json"})
+	@PutMapping(value = "/{code}",
+	consumes = {"application/json"},
+	produces = {"application/json"})
 	@Operation(summary = "project 업데이트", description = "code로 project 변경, title 필요")
-	public ResponseEntity<?> updateProject(@Valid @PathVariable("code") final String code, @RequestBody Project project)
+	public ResponseEntity<?> updateProject(@Valid @PathVariable final String code, @RequestBody Project project)
 	{
 		if(code.length() < 6 || code.equals(""))
 			throw new DataFormatException("Please Check your code");

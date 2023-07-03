@@ -7,13 +7,13 @@ import com.sw.project.exception.DataFormatException;
 import com.sw.project.exception.ResourceNotFoundException;
 import com.sw.project.service.ProblemService;
 import com.sw.project.service.subProblemService;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,8 +29,8 @@ public class subProblemController {
 	ProblemService problemService;
 	
 	
-	@RequestMapping(value="", method = RequestMethod.POST,
-			produces = {"application/json"})
+	@PostMapping(value = "",
+	produces = {"application/json"})
 	public ResponseEntity<?> saveSubProblem(@Valid @RequestBody subProblemBody problemBody/*subProblem subproblem*/){
 		
 	
